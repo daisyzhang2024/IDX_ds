@@ -156,6 +156,19 @@ baseline_summary = pandas.DataFrame([{
 baseline_summary.to_csv('baseline_linear_regression_results.csv', index=False)
 print('Saved to baseline_linear_regression_results.csv')
 
+# -------------------------------------------------------------------
+# Top features by coefficient magnitude
+# -------------------------------------------------------------------
+coefs = pandas.Series(baseline_model.coef_, index=model_features)
+top_features = coefs.reindex(coefs.abs().sort_values(ascending=False).index)
+
+print('\nTop 20 features by |coefficient| (Linear Regression):')
+print(top_features.head(20))
+
+# Save full ranked list for reference
+top_features.to_csv('baseline_linear_regression_coefficients.csv', header=['coefficient'])
+print('Saved to baseline_linear_regression_coefficients.csv')
+
 # # -------------------------------------------------------------------
 # # STEP 5: Random Forest model (for comparison against the baseline)
 # # -------------------------------------------------------------------
